@@ -1,0 +1,235 @@
+.page {
+  max-width: 420px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 40px) var(--pad) calc(env(safe-area-inset-bottom) + 32px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--accent);
+}
+
+.wordmark {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text);
+}
+
+.brand p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Formulaire */
+.form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 6px solid var(--inv);
+  border-radius: var(--radius);
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* L'inscription a sa propre couleur pour qu'on ne la confonde pas avec la connexion */
+.form.signup {
+  border-top-color: var(--signup);
+}
+
+/* Onglets Connexion / Inscription */
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border-radius: 16px;
+  background: var(--chip);
+}
+
+.tabs button {
+  min-height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.tabs button[aria-pressed='true'] {
+  background: var(--inv);
+  color: var(--inv-text);
+}
+
+.signup .tabs button[aria-pressed='true'] {
+  background: var(--signup);
+  color: var(--signup-text);
+}
+
+.heading h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.heading p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.field input {
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1.5px solid transparent;
+  background: var(--chip);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--text);
+}
+
+.hint {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.submit {
+  min-height: 52px;
+  border-radius: 26px;
+  border: none;
+  background: var(--inv);
+  color: var(--inv-text);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.signup .submit {
+  background: var(--signup);
+  color: var(--signup-text);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+}
+
+/* Messages */
+.success,
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1.5px solid;
+}
+
+.success p,
+.error p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+.success svg,
+.error svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.success {
+  background: var(--success-bg);
+  border-color: var(--success-line);
+  color: var(--success-text);
+}
+
+.error {
+  background: var(--error-bg);
+  border-color: var(--error-line);
+  color: var(--error-text);
+}
+
+.setup code {
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--chip);
+}
+
+/* Couleurs propres à cette page, en jour puis en nuit */
+.page {
+  --signup: #b8441a;
+  --signup-text: #ffffff;
+  --success-bg: #e3f4ea;
+  --success-line: #8fcfa7;
+  --success-text: #14532d;
+  --error-bg: #fdecea;
+  --error-line: #f2a59c;
+  --error-text: #8a1c12;
+}
+
+:global([data-theme='dark']) .page {
+  --signup: #ff8a50;
+  --signup-text: #0b1220;
+  --success-bg: #12301f;
+  --success-line: #2f7a4d;
+  --success-text: #b7ebc9;
+  --error-bg: #3a1714;
+  --error-line: #8a3a33;
+  --error-text: #ffb4ab;
+}
+
+.google {
+  min-height: 52px;
+  border-radius: 26px;
+  border: 1.5px solid var(--dash);
+  background: var(--card);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background: var(--dash);
+}

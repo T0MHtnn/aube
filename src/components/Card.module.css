@@ -1,0 +1,228 @@
+.card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.small {
+  height: var(--cell);
+}
+
+.wide {
+  grid-column: span 2;
+  height: var(--cell);
+  padding: 18px 20px;
+}
+
+.large {
+  grid-column: span 2;
+  height: calc(var(--cell) * 2 + var(--gap));
+  padding: 20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.unknown {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Mode édition : panneau d'actions par-dessus la carte */
+.editing {
+  outline: 2px dashed var(--dash);
+  outline-offset: 3px;
+}
+
+.actions {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 44px);
+  gap: 8px;
+  align-content: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--card) 82%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.wide .actions,
+.large .actions {
+  grid-template-columns: repeat(4, 44px);
+}
+
+.actions button {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  border: none;
+  background: var(--inv);
+  color: var(--inv-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions button:disabled {
+  opacity: 0.35;
+}
+
+.actions .remove {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+/* Notes */
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notesHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.saveState {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.notes textarea {
+  flex-grow: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.notes textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+/* Tableau vide */
+.empty {
+  grid-column: span 2;
+  min-height: calc(var(--cell) * 1.8);
+  border: 2px dashed var(--dash);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.empty h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.empty p {
+  margin: 0;
+  max-width: 260px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.emptyArt {
+  display: grid;
+  grid-template-columns: repeat(2, 29px);
+  gap: 6px;
+}
+
+.emptyArt span {
+  height: 29px;
+  border-radius: 8px;
+  background: var(--chip);
+}
+
+.emptyArt span:last-child {
+  grid-column: span 2;
+  background: var(--accent);
+}
+
+.primary {
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 24px;
+  border: none;
+  background: var(--inv);
+  color: var(--inv-text);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Confirmation de suppression */
+.confirm {
+  position: absolute;
+  inset: 0;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.confirm p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.confirm div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.confirm button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cancel {
+  border: 1.5px solid var(--dash);
+  background: transparent;
+}
+
+.delete {
+  border: none;
+  background: var(--danger);
+  color: #ffffff;
+}
+
+:global([data-theme='dark']) .delete {
+  color: #0b1220;
+}

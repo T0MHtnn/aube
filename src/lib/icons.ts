@@ -1,0 +1,30 @@
+/** Tracés SVG (viewBox 24×24, trait) utilisés dans toute l'appli */
+export const ICONS = {
+  plus: 'M12 5v14M5 12h14',
+  external: 'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5',
+  user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',
+  close: 'M6 6l12 12M18 6L6 18',
+  back: 'M15 5l-7 7 7 7',
+  moon: 'M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z',
+  sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+  edit: 'M4 20h4L19 9l-4-4L4 16v4z',
+  check: 'M4 12l5 5L20 6',
+  up: 'M12 19V5M5 12l7-7 7 7',
+  down: 'M12 5v14M5 12l7 7 7-7',
+  resize: 'M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7',
+  trash: 'M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3',
+  search: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4',
+  pin: 'M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12zM12 6.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z',
+  logo: 'M5 17a7 7 0 0 1 14 0M2 21h20M12 4v3M4.9 8.9l1.6 1.6M19.1 8.9l-1.6 1.6',
+  cloud: 'M7 18a4 4 0 1 1 1-7.9A5 5 0 0 1 17.5 12 3.5 3.5 0 0 1 17 18H7z',
+  transit: 'M6 4h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM4 11h16M8 21l2-4M16 21l-2-4',
+  calendar: 'M5 5h14v15H5zM5 10h14M9 3v4M15 3v4',
+  meal: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+  bike: 'M2.5 17.5a3 3 0 1 0 6 0a3 3 0 1 0-6 0M15.5 17.5a3 3 0 1 0 6 0a3 3 0 1 0-6 0M5.5 17.5L9 10h6l3.5 7.5M9 10L8 7H6',
+  air: 'M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7',
+  gift: 'M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-2-4-6-3-5 0M12 7c2-4 6-3 5 0',
+  fridge: 'M6 3h12v18H6zM6 10h12M9 6v2M9 13v3',
+  cart: 'M3 4h2l2.5 11h11L21 7H6.5M9 20a1 1 0 1 0 0-.01M18 20a1 1 0 1 0 0-.01',
+} as const;
+
+export type IconName = keyof typeof ICONS;
