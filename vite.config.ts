@@ -3,7 +3,14 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  server: { port: 5174, strictPort: true },
+  server: {
+    port: 5174,
+    strictPort: true,
+    // En local, /api/... est envoyé vers Aube en ligne (les fonctions serveur tournent chez Vercel)
+    proxy: {
+      '/api': { target: 'https://aube-app.vercel.app', changeOrigin: true },
+    },
+  },
   plugins: [
     react(),
     VitePWA({

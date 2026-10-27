@@ -1,0 +1,183 @@
+.message {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.stop {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.badge {
+    flex-shrink: 0;
+    min-width: 32px;
+    height: 28px;
+    padding: 0 7px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+/* Petit */
+.small {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.smallMain {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bigWait {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.direction {
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Large et Grand */
+.full {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.freshness {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.live,
+.planned {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+}
+
+.live {
+    background: #2f9e5b;
+}
+
+.planned {
+    background: var(--dash);
+}
+
+.rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rows li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.rowDirection {
+    flex-grow: 1;
+    min-width: 0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.times {
+    flex-shrink: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.times strong {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+}
+
+/* Réglage : choix des lignes */
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1.5px solid var(--dash);
+    background: transparent;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.inlineLink {
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Mention des sources, demandée par Transitous */
+.sources {
+    margin-top: auto;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}

@@ -84,3 +84,8 @@ export function MealsupLogin({ onSubmit, resumeCardType = 'mealsup-next' }: Prop
     </form>
   );
 }
+
+/** Même connexion, pour la carte « À consommer vite » (reprise au retour de Google) */
+export function FridgeLogin(props: CardConfigProps<MealsupConfig>) {
+  return <MealsupLogin {...props} resumeCardType="mealsup-fridge" />;
+}

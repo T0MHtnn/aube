@@ -4,7 +4,10 @@ import type { IconName } from '../lib/icons';
 import { WeatherCard } from './weather/WeatherCard';
 import { WeatherConfig } from './weather/WeatherConfig';
 import { NextMealCard } from './mealsup/NextMealCard';
-import { MealsupLogin } from './mealsup/MealsupLogin';
+import { FridgeLogin, MealsupLogin } from './mealsup/MealsupLogin';
+import { ExpiringCard } from './mealsup/ExpiringCard';
+import { TransitCard } from './transit/TransitCard';
+import { TransitConfig } from './transit/TransitConfig';
 
 export interface CardViewProps<C> {
   config: C;
@@ -47,7 +50,17 @@ export const CARD_TYPES: CardDefinition[] = [
     View: WeatherCard,
     ConfigForm: WeatherConfig,
   },
-  { type: 'transit', name: 'Transports', description: 'Prochains passages à ton arrêt', icon: 'transit', status: 'soon', sizes: ['small', 'wide', 'large'], defaultSize: 'wide' },
+  {
+    type: 'transit',
+    name: 'Transports',
+    description: 'Prochains passages à ton arrêt, partout en France',
+    icon: 'transit',
+    status: 'available',
+    sizes: ['small', 'wide', 'large'],
+    defaultSize: 'wide',
+    View: TransitCard,
+    ConfigForm: TransitConfig,
+  },
   { type: 'agenda', name: 'Agenda', description: 'Tes rendez-vous du jour', icon: 'calendar', status: 'soon', sizes: ['wide', 'large'], defaultSize: 'wide' },
   { type: 'priorities', name: 'Priorités', description: 'Tes 3 tâches importantes', icon: 'check', status: 'soon', sizes: ['wide', 'large'], defaultSize: 'wide' },
   {
@@ -62,7 +75,18 @@ export const CARD_TYPES: CardDefinition[] = [
     View: NextMealCard,
     ConfigForm: MealsupLogin,
   },
-  { type: 'mealsup-fridge', name: 'À consommer vite', description: 'Ce qui périme aujourd’hui ou demain', icon: 'fridge', source: 'MealsUp', status: 'soon', sizes: ['small', 'wide'], defaultSize: 'small' },
+  {
+    type: 'mealsup-fridge',
+    name: 'À consommer vite',
+    description: 'Ce qui périme dans ton frigo d’ici 2 jours',
+    icon: 'fridge',
+    source: 'MealsUp',
+    status: 'available',
+    sizes: ['small', 'wide', 'large'],
+    defaultSize: 'wide',
+    View: ExpiringCard,
+    ConfigForm: FridgeLogin,
+  },
   { type: 'bikes', name: 'Vélos', description: 'Vélos et places dispo près de toi', icon: 'bike', status: 'soon', sizes: ['small', 'wide'], defaultSize: 'small' },
   { type: 'air', name: 'Qualité de l’air', description: 'Indice du jour et pollens', icon: 'air', status: 'soon', sizes: ['small', 'wide'], defaultSize: 'small' },
   { type: 'birthdays', name: 'Anniversaires', description: 'Ceux à ne pas oublier', icon: 'gift', status: 'soon', sizes: ['small', 'wide'], defaultSize: 'wide' },

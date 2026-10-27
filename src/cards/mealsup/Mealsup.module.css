@@ -169,3 +169,83 @@
 .first {
   padding-right: 40px;
 }
+
+/* Carte « À consommer vite » */
+.count {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.fridge {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.itemName {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemQty {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.tag {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 10px;
+}
+
+.tagSoon {
+  background: var(--chip);
+  color: var(--text);
+}
+
+.tagToday {
+  background: #fde7d8;
+  color: #8a3210;
+}
+
+.tagExpired {
+  background: #fdecea;
+  color: #8a1c12;
+}
+
+:global([data-theme='dark']) .tagToday {
+  background: #3d2416;
+  color: #ffc7a3;
+}
+
+:global([data-theme='dark']) .tagExpired {
+  background: #3a1714;
+  color: #ffb4ab;
+}
