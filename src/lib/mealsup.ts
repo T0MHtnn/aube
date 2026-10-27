@@ -40,7 +40,11 @@ export async function signInMealsupWithGoogle(pendingCardType?: string) {
   rememberOAuthTarget('mealsup');
   return mealsup.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: `${window.location.origin}/?auth=mealsup` },
+    options: {
+      redirectTo: `${window.location.origin}/?auth=mealsup`,
+      // Toujours demander quel compte Google utiliser
+      queryParams: { prompt: 'select_account' },
+    },
   });
 }
 

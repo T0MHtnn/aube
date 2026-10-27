@@ -46,7 +46,11 @@ export function LoginPage() {
     rememberOAuthTarget('aube');
     const { error: err } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/?auth=aube` },
+      options: {
+        redirectTo: `${window.location.origin}/?auth=aube`,
+        // Toujours demander quel compte Google utiliser
+        queryParams: { prompt: 'select_account' },
+      },
     });
     if (err) setError('La connexion Google n’a pas pu démarrer. Réessaie.');
   };
