@@ -11,5 +11,5 @@ export default function App() {
   if (!supabaseConfigured) return <SetupMissing />;
   if (loading) return null;
   if (!session) return <LoginPage />;
-  return <DashboardPage key={session.user.id} email={session.user.email ?? ''} theme={theme} onToggleTheme={toggle} />;
+  return <DashboardPage key={session.user.id} userId={session.user.id} email={session.user.email ?? ''} theme={theme} onToggleTheme={toggle} />;
 }

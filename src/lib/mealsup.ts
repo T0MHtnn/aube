@@ -87,3 +87,20 @@ export async function openMealsupApp() {
     window.location.href = url;
   }
 }
+
+/*
+ * La connexion MealsUp reste gardée quand on se déconnecte d'Aube.
+ * On note à quel compte Aube elle appartient : si un autre compte Aube
+ * se connecte sur cet appareil, on la coupe pour qu'il ne voie pas tes repas.
+ */
+const OWNER_KEY = 'aube-mealsup-owner';
+
+export async function bindMealsupToUser(aubeUserId: string) {
+  try {
+    const owner = localStorage.getItem(OWNER_KEY);
+    if (owner && owner !== aubeUserId) await mealsup.auth.signOut();
+    localStorage.setItem(OWNER_KEY, aubeUserId);
+  } catch {
+    /* sans stockage, rien à faire */
+  }
+}

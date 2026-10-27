@@ -24,7 +24,6 @@ export function AccountSheet({ email, onClose }: Props) {
     };
 
     const signOut = async () => {
-        await mealsup.auth.signOut();
         await supabase.auth.signOut();
     };
 

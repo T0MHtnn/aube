@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { mealsup, takePendingCard } from '../lib/mealsup';
+import { bindMealsupToUser, mealsup, takePendingCard } from '../lib/mealsup';
 import { oauthReturn } from '../lib/oauthReturn';
 import { formatToday, greeting } from '../lib/date';
 import { useCards } from '../hooks/useCards';
@@ -13,17 +13,22 @@ import { NotesCard } from '../components/NotesCard';
 import styles from './Dashboard.module.css';
 
 interface Props {
+  userId: string;
   email: string;
   theme: Theme;
   onToggleTheme: () => void;
 }
 
-export function DashboardPage({ email, theme, onToggleTheme }: Props) {
+export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
   const { cards, loading, error, addCard, removeCard, resizeCard, moveCard } = useCards();
   const [editing, setEditing] = useState(false);
   const [adding, setAdding] = useState(false);
   const [account, setAccount] = useState(false);
   const [resume, setResume] = useState<{ type: string; config: Record<string, unknown> } | null>(null);
+  // La connexion MealsUp de cet appareil appartient au compte Aube connecté
+  useEffect(() => {
+    bindMealsupToUser(userId);
+  }, [userId]);
 
   // Retour de la connexion Google à MealsUp : on rouvre l'ajout là où on l'avait laissé
   useEffect(() => {
