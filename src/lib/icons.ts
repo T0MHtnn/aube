@@ -1,6 +1,10 @@
 /** Tracés SVG (viewBox 24×24, trait) utilisés dans toute l'appli */
 export const ICONS = {
   plus: 'M12 5v14M5 12h14',
+  more: 'M5 12h.01M12 12h.01M19 12h.01',
+  walk: 'M13.5 5.5a1.5 1.5 0 1 0 0-.01M10 21l1.8-6.2L14.5 17v4M10.5 11.5l2.5-3 3 2.5 2.5.8M12.5 9l-1.2 5.5',
+  swap: 'M7 4v16M7 4L4 7M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3',
+  route: 'M6 19a2 2 0 1 0 0-.01M18 5a2 2 0 1 0 0-.01M6 17V9a3 3 0 0 1 3-3h3M18 7v8a3 3 0 0 1-3 3h-3',
   sliders: 'M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1M15 4v4M9 10v4M17 16v4',
   external: 'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5',
   user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',

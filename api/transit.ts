@@ -10,6 +10,7 @@ declare const process: { env: Record<string, string | undefined> };
 
 const BASE = 'https://api.transitous.org';
 const STOP_ID = /^[^\s\u0000-\u001f]{1,200}$/;
+const LAT_LON = /^-?\d{1,2}(\.\d{1,7})?,-?\d{1,3}(\.\d{1,7})?$/;
 
 function json(body: unknown, status = 200) {
     return new Response(JSON.stringify(body), {
@@ -30,10 +31,13 @@ export async function GET(request: Request): Promise<Response> {
     let maxAge: number;
 
     switch (p.get('op')) {
-        case 'stops': {
+        case 'stops':
+        case 'places': {
+            // stops : arrêts seulement ; places : arrêts, adresses et lieux (pour les trajets)
             const q = (p.get('q') ?? '').trim().slice(0, 80);
             if (q.length < 2) return json({ error: 'bad_request' }, 400);
-            const params = new URLSearchParams({ text: q, type: 'STOP', language: 'fr', numResults: '8' });
+            const params = new URLSearchParams({ text: q, language: 'fr', numResults: '8' });
+            if (p.get('op') === 'stops') params.set('type', 'STOP');
             const lat = coordinate(p.get('lat'), 90);
             const lon = coordinate(p.get('lon'), 180);
             if (lat && lon) {
@@ -50,6 +54,21 @@ export async function GET(request: Request): Promise<Response> {
             const n = Math.min(Math.max(Number(p.get('n')) || 30, 10), 80);
             path = `/api/v6/stoptimes?${new URLSearchParams({ stopId: stop, n: String(n) }).toString()}`;
             maxAge = 20;
+            break;
+        }
+        case 'plan': {
+            const from = p.get('from') ?? '';
+            const to = p.get('to') ?? '';
+            if (!LAT_LON.test(from) || !LAT_LON.test(to)) return json({ error: 'bad_request' }, 400);
+            const params = new URLSearchParams({
+                fromPlace: from,
+                toPlace: to,
+                detailedLegs: 'false',
+                detailedTransfers: 'false',
+                joinInterlinedLegs: 'true',
+            });
+            path = `/api/v6/plan?${params.toString()}`;
+            maxAge = 30;
             break;
         }
         default:

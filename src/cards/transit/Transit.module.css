@@ -44,6 +44,7 @@
     justify-content: space-between;
     align-items: baseline;
     gap: 8px;
+    padding-right: 36px;
 }
 
 .freshness {

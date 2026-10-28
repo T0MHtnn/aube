@@ -226,3 +226,26 @@
 :global([data-theme='dark']) .delete {
   color: #0b1220;
 }
+
+/* Bouton d'options (⋯) en haut à droite de chaque carte */
+.menuButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuButton:hover,
+.menuButton:focus-visible {
+  background: var(--chip);
+  color: var(--text);
+}

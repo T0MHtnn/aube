@@ -8,6 +8,8 @@ import { FridgeLogin, MealsupLogin } from './mealsup/MealsupLogin';
 import { ExpiringCard } from './mealsup/ExpiringCard';
 import { TransitCard } from './transit/TransitCard';
 import { TransitConfig } from './transit/TransitConfig';
+import { JourneyCard } from './journey/JourneyCard';
+import { JourneyConfig } from './journey/JourneyConfig';
 
 export interface CardViewProps<C> {
   config: C;
@@ -64,6 +66,17 @@ export const CARD_TYPES: CardDefinition[] = [
     defaultSize: 'wide',
     View: TransitCard,
     ConfigForm: TransitConfig,
+  },
+  {
+    type: 'journey',
+    name: 'Trajet',
+    description: 'Tes prochains itinéraires d’un point à un autre, comme sur Maps',
+    icon: 'route',
+    status: 'available',
+    sizes: ['small', 'wide', 'large'],
+    defaultSize: 'wide',
+    View: JourneyCard,
+    ConfigForm: JourneyConfig,
   },
   { type: 'agenda', name: 'Agenda', description: 'Tes rendez-vous du jour', icon: 'calendar', status: 'soon', sizes: ['wide', 'large'], defaultSize: 'wide' },
   { type: 'priorities', name: 'Priorités', description: 'Tes 3 tâches importantes', icon: 'check', status: 'soon', sizes: ['wide', 'large'], defaultSize: 'wide' },

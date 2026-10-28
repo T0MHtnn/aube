@@ -5,9 +5,10 @@ import { formatToday, greeting } from '../lib/date';
 import { useCards } from '../hooks/useCards';
 import type { Theme } from '../hooks/useTheme';
 import { AccountSheet } from '../components/AccountSheet';
-import { EditCardSheet } from '../components/EditCardSheet';
 import { AddCardSheet } from '../components/AddCardSheet';
 import { CardFrame } from '../components/CardFrame';
+import { CardMenuSheet } from '../components/CardMenuSheet';
+import { EditCardSheet } from '../components/EditCardSheet';
 import { EmptyState } from '../components/EmptyState';
 import { Icon } from '../components/Icon';
 import { NotesCard } from '../components/NotesCard';
@@ -22,12 +23,15 @@ interface Props {
 
 export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
   const { cards, loading, error, addCard, removeCard, resizeCard, moveCard, updateConfig } = useCards();
-  const [editing, setEditing] = useState(false);
   const [adding, setAdding] = useState(false);
   const [account, setAccount] = useState(false);
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
   const editingCard = cards.find((c) => c.id === editingCardId) ?? null;
+  const [menuCardId, setMenuCardId] = useState<string | null>(null);
+  const menuIndex = cards.findIndex((c) => c.id === menuCardId);
+  const menuCard = menuIndex >= 0 ? cards[menuIndex] : null;
   const [resume, setResume] = useState<{ type: string; config: Record<string, unknown> } | null>(null);
+
   // La connexion MealsUp de cet appareil appartient au compte Aube connecté
   useEffect(() => {
     bindMealsupToUser(userId);
@@ -45,7 +49,6 @@ export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
   }, []);
 
   const openAdd = () => {
-    setEditing(false);
     setResume(null);
     setAdding(true);
   };
@@ -73,15 +76,6 @@ export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
           >
             <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
           </button>
-          <button
-            type="button"
-            className={`${styles.round} ${editing ? styles.active : ''}`}
-            aria-label={editing ? 'Terminer la modification' : 'Modifier le tableau'}
-            aria-pressed={editing}
-            onClick={() => setEditing((v) => !v)}
-          >
-            <Icon name={editing ? 'check' : 'edit'} />
-          </button>
           <button type="button" className={`${styles.round} ${styles.add}`} aria-label="Ajouter une carte" onClick={openAdd}>
             <Icon name="plus" strokeWidth={2.4} />
           </button>
@@ -97,26 +91,29 @@ export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
 
       <div className={styles.grid}>
         <NotesCard />
-        {cards.map((card, i) => (
-          <CardFrame
-            key={card.id}
-            card={card}
-            editing={editing}
-            isFirst={i === 0}
-            isLast={i === cards.length - 1}
-            onMove={(d) => moveCard(card.id, d)}
-            onResize={(s) => resizeCard(card.id, s)}
-            onRemove={() => removeCard(card.id)}
-            onEdit={() => setEditingCardId(card.id)}
-          />
+        {cards.map((card) => (
+          <CardFrame key={card.id} card={card} onMenu={() => setMenuCardId(card.id)} />
         ))}
         {!loading && cards.length === 0 && <EmptyState onAdd={openAdd} />}
       </div>
 
-      {editing && (
-        <div className={styles.editBar}>
-          <p>Déplace, redimensionne ou supprime tes cartes. La carte Notes reste toujours en haut.</p>
-        </div>
+      {menuCard && (
+        <CardMenuSheet
+          card={menuCard}
+          isFirst={menuIndex === 0}
+          isLast={menuIndex === cards.length - 1}
+          onClose={() => setMenuCardId(null)}
+          onEdit={() => {
+            setMenuCardId(null);
+            setEditingCardId(menuCard.id);
+          }}
+          onMove={(d) => moveCard(menuCard.id, d)}
+          onResize={(s) => resizeCard(menuCard.id, s)}
+          onRemove={() => {
+            setMenuCardId(null);
+            removeCard(menuCard.id);
+          }}
+        />
       )}
 
       {editingCard && (

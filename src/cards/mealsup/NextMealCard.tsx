@@ -78,7 +78,8 @@ export function NextMealCard({ size }: CardViewProps<MealsupConfig>) {
     );
   }
 
-  const openButton = mealsupAppUrl && (
+  // Dans la petite carte, pas de place pour ce bouton à côté du bouton d'options
+  const openButton = mealsupAppUrl && size !== 'small' && (
     <button type="button" className={styles.open} aria-label="Ouvrir MealsUp" onClick={openMealsupApp}>
       <Icon name="external" size={18} />
     </button>
@@ -88,7 +89,7 @@ export function NextMealCard({ size }: CardViewProps<MealsupConfig>) {
     return (
       <div className={styles.small}>
         {openButton}
-        <span className={`${styles.label} ${styles.first}`}>{when(next)}</span>
+        <span className={`${styles.label} ${openButton ? styles.withOpen : styles.first}`}>{when(next)}</span>
         <strong className={styles.title}>{next.title}</strong>
         <span className={styles.meta}>{missingText(state.missing)}</span>
       </div>
@@ -100,7 +101,7 @@ export function NextMealCard({ size }: CardViewProps<MealsupConfig>) {
       {openButton}
       <MealImage src={next.imageUrl} />
       <div className={styles.text}>
-        <span className={`${styles.label} ${styles.first}`}>{when(next)}</span>
+        <span className={`${styles.label} ${openButton ? styles.withOpen : styles.first}`}>{when(next)}</span>
         <strong className={styles.title}>{next.title}</strong>
         <span className={styles.meta}>{missingText(state.missing)}</span>
       </div>

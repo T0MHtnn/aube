@@ -1,0 +1,197 @@
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+/* Le haut de la carte laisse la place au bouton d'options (⋯) */
+.head {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 40px;
+    min-width: 0;
+}
+
+.route {
+    flex-grow: 1;
+    min-width: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.swap {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border: none;
+    background: var(--chip);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swap[aria-pressed='true'] {
+    background: var(--inv);
+    color: var(--inv-text);
+}
+
+.message {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.meta {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.meta strong {
+    color: var(--text);
+}
+
+/* Enchaînement des étapes */
+.chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+.step {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sep {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.walk {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.badge {
+    min-width: 28px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+/* Petit */
+.small {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.leaveSmall {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+/* Large et Grand */
+.list {
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.list li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.live {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-left: 6px;
+    border-radius: 4px;
+    background: #2f9e5b;
+    vertical-align: middle;
+}
+
+.sourcesItem {
+    margin-top: auto;
+}
+
+.sources {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Réglage */
+.placeField {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: var(--chip);
+}
+
+.placeField input {
+    background: var(--card) !important;
+}
+
+.placeLabel {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--muted);
+}
+
+.inlineLink {
+    align-self: flex-start;
+    min-height: 32px;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}

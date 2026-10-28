@@ -401,3 +401,54 @@
 :global([data-theme='dark']) .danger {
   color: #0b1220;
 }
+
+/* Menu d'une carte */
+.menuItem {
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: none;
+  background: var(--chip);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.menuDanger {
+  color: var(--danger);
+}
+
+.segmented {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 16px;
+  background: var(--chip);
+}
+
+.segmented button {
+  flex: 1 1 0;
+  min-height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.segmented button[aria-pressed='true'] {
+  background: var(--inv);
+  color: var(--inv-text);
+}
+
+.segmented button:disabled {
+  opacity: 0.4;
+}

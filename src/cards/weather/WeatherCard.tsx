@@ -20,16 +20,13 @@ export function WeatherCard({ config, size }: CardViewProps<WeatherPlace>) {
       <div className={styles.small}>
         <div className={styles.placeRow}>
           <span className={styles.place}>{config.name}</span>
-          <WeatherIcon code={data.code} isDay={data.isDay} size={34} label={weatherLabel(data.code)} />
         </div>
         <div className={styles.tempRow}>
           <span className={styles.temp}>{data.temperature}°</span>
-          <span className={styles.range}>
-            ↑{data.max}°<br />↓{data.min}°
-          </span>
+          <WeatherIcon code={data.code} isDay={data.isDay} size={38} label={weatherLabel(data.code)} />
         </div>
         <span className={styles.meta}>
-          Vent {data.wind} km/h
+          ↑{data.max}° ↓{data.min}° · {data.wind} km/h
           <br />
           {alertLine}
         </span>

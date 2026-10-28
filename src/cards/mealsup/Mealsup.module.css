@@ -1,8 +1,8 @@
 /* Bouton « Ouvrir MealsUp », en haut à droite de la carte */
 .open {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 4px;
+  right: 46px;
   width: 44px;
   height: 44px;
   border-radius: 22px;
@@ -16,6 +16,10 @@
 
 .first {
   padding-right: 40px;
+}
+
+.withOpen {
+  padding-right: 92px;
 }
 
 .message {

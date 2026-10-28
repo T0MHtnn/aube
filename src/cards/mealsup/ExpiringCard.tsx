@@ -22,7 +22,8 @@ export function ExpiringCard({ size }: CardViewProps<MealsupConfig>) {
     }
 
     const { items } = state;
-    const openButton = mealsupAppUrl && (
+    // Dans la petite carte, pas de place pour ce bouton à côté du bouton d'options
+    const openButton = mealsupAppUrl && size !== 'small' && (
         <button type="button" className={styles.open} aria-label="Ouvrir MealsUp" onClick={openMealsupApp}>
             <Icon name="external" size={18} />
         </button>
@@ -32,7 +33,7 @@ export function ExpiringCard({ size }: CardViewProps<MealsupConfig>) {
         return (
             <div className={styles.small}>
                 {openButton}
-                <span className={`${styles.label} ${styles.first}`}>À consommer vite</span>
+                <span className={`${styles.label} ${openButton ? styles.withOpen : styles.first}`}>À consommer vite</span>
                 <p className={styles.message}>Rien ne périme dans les 2 prochains jours.</p>
             </div>
         );
@@ -43,7 +44,7 @@ export function ExpiringCard({ size }: CardViewProps<MealsupConfig>) {
         return (
             <div className={styles.small}>
                 {openButton}
-                <span className={`${styles.label} ${styles.first}`}>À consommer vite</span>
+                <span className={`${styles.label} ${openButton ? styles.withOpen : styles.first}`}>À consommer vite</span>
                 <span className={styles.count}>{items.length}</span>
                 <span className={styles.meta}>
                     {first.name}, {expiryLabel(first.expiry).toLowerCase()}
@@ -59,7 +60,7 @@ export function ExpiringCard({ size }: CardViewProps<MealsupConfig>) {
     return (
         <div className={styles.fridge}>
             {openButton}
-            <span className={`${styles.label} ${styles.first}`}>À consommer vite</span>
+            <span className={`${styles.label} ${openButton ? styles.withOpen : styles.first}`}>À consommer vite</span>
             <ul className={styles.items}>
                 {shown.map((item) => (
                     <li key={item.id}>

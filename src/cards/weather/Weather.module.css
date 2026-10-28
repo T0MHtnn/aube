@@ -45,6 +45,7 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 12px;
+  padding-right: 36px;
 }
 
 .now {
@@ -193,6 +194,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 8px;
+  padding-right: 36px;
 }
 
 .nowRow {
