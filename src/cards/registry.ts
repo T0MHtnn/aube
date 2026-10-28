@@ -9,11 +9,13 @@ import { ExpiringCard } from './mealsup/ExpiringCard';
 import { TransitCard } from './transit/TransitCard';
 import { TransitConfig } from './transit/TransitConfig';
 import { JourneyCard } from './journey/JourneyCard';
-import { JourneyConfig } from './journey/JourneyConfig';
+import { NotesCard } from './notes/NotesCard';
 
 export interface CardViewProps<C> {
   config: C;
   size: CardSize;
+  /** Enregistre de nouveaux réglages depuis la carte elle-même (notes, dernier trajet…). Absent dans les aperçus. */
+  onChange?: (config: C) => Promise<void>;
 }
 
 export interface CardConfigProps<C> {
@@ -46,6 +48,16 @@ export interface CardDefinition<C = any> {
  */
 export const CARD_TYPES: CardDefinition[] = [
   {
+    type: 'notes',
+    name: 'Notes',
+    description: 'Texte libre et listes à cocher',
+    icon: 'edit',
+    status: 'available',
+    sizes: ['small', 'wide', 'large'],
+    defaultSize: 'wide',
+    View: NotesCard,
+  },
+  {
     type: 'weather',
     name: 'Météo',
     description: 'Température et pluie heure par heure',
@@ -70,13 +82,12 @@ export const CARD_TYPES: CardDefinition[] = [
   {
     type: 'journey',
     name: 'Trajet',
-    description: 'Tes prochains itinéraires d’un point à un autre, comme sur Maps',
+    description: 'Cherche un itinéraire directement dans la carte, comme sur Maps',
     icon: 'route',
     status: 'available',
-    sizes: ['small', 'wide', 'large'],
-    defaultSize: 'wide',
+    sizes: ['large'],
+    defaultSize: 'large',
     View: JourneyCard,
-    ConfigForm: JourneyConfig,
   },
   { type: 'agenda', name: 'Agenda', description: 'Tes rendez-vous du jour', icon: 'calendar', status: 'soon', sizes: ['wide', 'large'], defaultSize: 'wide' },
   { type: 'priorities', name: 'Priorités', description: 'Tes 3 tâches importantes', icon: 'check', status: 'soon', sizes: ['wide', 'large'], defaultSize: 'wide' },

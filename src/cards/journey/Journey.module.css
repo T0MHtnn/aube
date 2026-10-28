@@ -6,32 +6,82 @@
     min-width: 0;
 }
 
-/* Le haut de la carte laisse la place au bouton d'options (⋯) */
+/* Le haut laisse la place au bouton d'options (⋯) */
 .head {
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 6px;
+    min-height: 24px;
     padding-right: 40px;
-    min-width: 0;
 }
 
 .route {
-    flex-grow: 1;
-    min-width: 0;
     font-size: 13px;
     font-weight: 700;
     color: var(--muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+/* Champs Départ / Arrivée et bouton d'inversion */
+.form {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fields {
+    flex-grow: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 0 12px;
+    border-radius: 12px;
+    background: var(--chip);
+}
+
+.field input {
+    flex-grow: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    /* 16 px minimum : évite le zoom auto de Safari */
+    font-weight: 600;
+    color: var(--text);
+}
+
+.field:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 0;
+}
+
+.fieldDot {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    border: 2px solid var(--muted);
+}
+
+.fieldDot[data-field='to'] {
+    border-color: var(--accent);
+    background: var(--accent);
 }
 
 .swap {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
     border: none;
     background: var(--chip);
     color: var(--text);
@@ -40,9 +90,27 @@
     justify-content: center;
 }
 
-.swap[aria-pressed='true'] {
+.searchButton {
+    flex-shrink: 0;
+    min-height: 44px;
+    border: none;
+    border-radius: 22px;
     background: var(--inv);
     color: var(--inv-text);
+    font-size: 15px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Zone du dessous : suggestions ou résultats, qui défile dans la carte */
+.panel {
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .message {
@@ -50,6 +118,63 @@
     font-size: 14px;
     line-height: 1.4;
     color: var(--muted);
+}
+
+.suggestions,
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestions button {
+    width: 100%;
+    min-height: 48px;
+    padding: 6px 0;
+    border: none;
+    border-bottom: 1px solid var(--chip);
+    background: transparent;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+}
+
+.suggestions span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.suggestions strong {
+    font-size: 15px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestions small {
+    font-size: 12px;
+}
+
+.list {
+    gap: 4px;
+}
+
+.option {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid var(--chip);
+    background: transparent;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .meta {
@@ -60,6 +185,16 @@
 
 .meta strong {
     color: var(--text);
+}
+
+.live {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-left: 6px;
+    border-radius: 4px;
+    background: #2f9e5b;
+    vertical-align: middle;
 }
 
 /* Enchaînement des étapes */
@@ -92,6 +227,7 @@
 }
 
 .badge {
+    flex-shrink: 0;
     min-width: 28px;
     height: 24px;
     padding: 0 6px;
@@ -104,94 +240,42 @@
     white-space: nowrap;
 }
 
-/* Petit */
-.small {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 6px;
-    min-height: 0;
-    overflow: hidden;
-}
-
-.leaveSmall {
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.15;
-}
-
-/* Large et Grand */
-.list {
-    flex-grow: 1;
-    min-height: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+/* Détail d'un itinéraire */
+.steps {
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 4px 0 8px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: var(--chip);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
-.list li {
+.steps li {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
-.live {
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    margin-left: 6px;
-    border-radius: 4px;
-    background: #2f9e5b;
-    vertical-align: middle;
-}
-
-.sourcesItem {
-    margin-top: auto;
+.stepIcon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
 }
 
 .sources {
+    display: inline-block;
+    margin-top: 8px;
     font-size: 11px;
     font-weight: 600;
     color: var(--muted);
     text-decoration: underline;
     text-underline-offset: 2px;
-}
-
-/* Réglage */
-.placeField {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 12px 14px;
-    border-radius: 16px;
-    background: var(--chip);
-}
-
-.placeField input {
-    background: var(--card) !important;
-}
-
-.placeLabel {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--muted);
-}
-
-.inlineLink {
-    align-self: flex-start;
-    min-height: 32px;
-    padding: 0;
-    border: none;
-    background: none;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
-    text-decoration: underline;
-    text-underline-offset: 3px;
 }

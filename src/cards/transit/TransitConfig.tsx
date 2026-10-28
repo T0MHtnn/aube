@@ -83,6 +83,16 @@ export function TransitConfig({ onSubmit, initial }: CardConfigProps<Config>) {
     const toggle = (id: string) =>
         setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
+    /** Change l'ordre des arrêts (l'ordre de la carte suit celui-ci) */
+    const moveEntry = (index: number, direction: -1 | 1) =>
+        setEntries((prev) => {
+            const target = index + direction;
+            if (target < 0 || target >= prev.length) return prev;
+            const next = [...prev];
+            [next[index], next[target]] = [next[target], next[index]];
+            return next;
+        });
+
     const addAnotherStop = () => {
         setQuery('');
         setMessage(null);
@@ -199,7 +209,7 @@ export function TransitConfig({ onSubmit, initial }: CardConfigProps<Config>) {
             <h3 className={sheet.fieldTitle}>Arrêts de la carte</h3>
             <p className={sheet.message}>Ajoute d’autres arrêts, même d’autres villes : tout s’affichera sur la même carte.</p>
             <ul className={styles.summary}>
-                {entries.map((e) => (
+                {entries.map((e, i) => (
                     <li key={e.stopId}>
                         <div className={styles.summaryText}>
                             <strong>{e.stopName}</strong>
@@ -216,23 +226,34 @@ export function TransitConfig({ onSubmit, initial }: CardConfigProps<Config>) {
                                 )}
                             </div>
                         </div>
-                        <button
-                            type="button"
-                            className={styles.remove}
-                            aria-label={`Modifier les lignes de ${e.stopName}`}
-                            disabled={busy}
-                            onClick={() => chooseStop({ id: e.stopId, name: e.stopName, area: e.area }, e.lines)}
-                        >
-                            <Icon name="edit" size={16} />
-                        </button>
-                        <button
-                            type="button"
-                            className={styles.remove}
-                            aria-label={`Retirer ${e.stopName}`}
-                            onClick={() => setEntries((prev) => prev.filter((x) => x.stopId !== e.stopId))}
-                        >
-                            <Icon name="close" size={16} strokeWidth={2.4} />
-                        </button>
+                        <div className={styles.summaryActions}>
+                            <button type="button" aria-label={`Monter ${e.stopName}`} disabled={i === 0} onClick={() => moveEntry(i, -1)}>
+                                <Icon name="up" size={16} />
+                            </button>
+                            <button
+                                type="button"
+                                aria-label={`Descendre ${e.stopName}`}
+                                disabled={i === entries.length - 1}
+                                onClick={() => moveEntry(i, 1)}
+                            >
+                                <Icon name="down" size={16} />
+                            </button>
+                            <button
+                                type="button"
+                                aria-label={`Modifier les lignes de ${e.stopName}`}
+                                disabled={busy}
+                                onClick={() => chooseStop({ id: e.stopId, name: e.stopName, area: e.area }, e.lines)}
+                            >
+                                <Icon name="edit" size={16} />
+                            </button>
+                            <button
+                                type="button"
+                                aria-label={`Retirer ${e.stopName}`}
+                                onClick={() => setEntries((prev) => prev.filter((x) => x.stopId !== e.stopId))}
+                            >
+                                <Icon name="close" size={16} strokeWidth={2.4} />
+                            </button>
+                        </div>
                     </li>
                 ))}
             </ul>

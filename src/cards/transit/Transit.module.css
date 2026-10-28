@@ -224,8 +224,9 @@
 
 .summary li {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
     padding: 12px 14px;
     border-radius: 16px;
     background: var(--chip);
@@ -275,4 +276,27 @@
     color: var(--muted);
     text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+/* Boutons d'un arrêt dans le récapitulatif : monter, descendre, lignes, retirer */
+.summaryActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.summaryActions button {
+    width: 44px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: var(--card);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summaryActions button:disabled {
+    opacity: 0.35;
 }

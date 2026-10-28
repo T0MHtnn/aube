@@ -6,9 +6,10 @@ export interface JourneyPlace {
     lon: number;
 }
 
+/** Dernière recherche, gardée pour la prochaine ouverture */
 export interface JourneyConfig {
-    from: JourneyPlace;
-    to: JourneyPlace;
+    from?: JourneyPlace;
+    to?: JourneyPlace;
 }
 
 export interface PlaceSuggestion extends JourneyPlace {
@@ -24,7 +25,9 @@ export interface Leg {
     textColor: string;
     headsign: string;
     from: string;
+    to: string;
     start: Date;
+    end: Date;
 }
 
 export interface Itinerary {
@@ -85,7 +88,9 @@ export async function planJourney(from: JourneyPlace, to: JourneyPlace): Promise
                     textColor: hex(l.routeTextColor, '#FFFFFF'),
                     headsign: l.headsign || l.tripTo?.name || '',
                     from: l.from?.name ?? '',
+                    to: l.to?.name ?? '',
                     start: new Date(l.startTime),
+                    end: new Date(l.endTime),
                 };
             });
         return {
