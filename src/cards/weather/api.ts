@@ -16,6 +16,7 @@ export interface HourSlot {
   code: number;
   wind: number; // km/h
   gusts: number; // km/h
+  isDay: boolean;
 }
 
 export interface Forecast {
@@ -23,6 +24,7 @@ export interface Forecast {
   code: number;
   wind: number;
   gusts: number;
+  isDay: boolean;
   max: number;
   min: number;
   hours: HourSlot[]; // à partir de l'heure actuelle
@@ -52,10 +54,10 @@ export async function fetchForecast(place: WeatherPlace, fromHour: string): Prom
   const url = new URL('https://api.open-meteo.com/v1/forecast');
   url.searchParams.set('latitude', String(place.latitude));
   url.searchParams.set('longitude', String(place.longitude));
-  url.searchParams.set('current', 'temperature_2m,weather_code,wind_speed_10m,wind_gusts_10m');
+  url.searchParams.set('current', 'temperature_2m,weather_code,wind_speed_10m,wind_gusts_10m,is_day');
   url.searchParams.set(
     'hourly',
-    'temperature_2m,precipitation_probability,weather_code,wind_speed_10m,wind_gusts_10m',
+    'temperature_2m,precipitation_probability,weather_code,wind_speed_10m,wind_gusts_10m,is_day',
   );
   url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min');
   url.searchParams.set('wind_speed_unit', 'kmh');
@@ -74,6 +76,7 @@ export async function fetchForecast(place: WeatherPlace, fromHour: string): Prom
     code: j.hourly.weather_code[start + i],
     wind: Math.round(j.hourly.wind_speed_10m[start + i] ?? 0),
     gusts: Math.round(j.hourly.wind_gusts_10m[start + i] ?? 0),
+    isDay: j.hourly.is_day?.[start + i] !== 0,
   }));
 
   return {
@@ -81,6 +84,7 @@ export async function fetchForecast(place: WeatherPlace, fromHour: string): Prom
     code: j.current.weather_code,
     wind: Math.round(j.current.wind_speed_10m ?? 0),
     gusts: Math.round(j.current.wind_gusts_10m ?? 0),
+    isDay: j.current.is_day !== 0,
     max: Math.round(j.daily.temperature_2m_max[0]),
     min: Math.round(j.daily.temperature_2m_min[0]),
     hours,

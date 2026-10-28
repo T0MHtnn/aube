@@ -4,7 +4,7 @@ import { searchCities, type CitySuggestion, type WeatherPlace } from './api';
 import { Icon } from '../../components/Icon';
 import sheet from '../../components/Sheet.module.css';
 
-export function WeatherConfig({ onSubmit }: CardConfigProps<WeatherPlace>) {
+export function WeatherConfig({ onSubmit, initial }: CardConfigProps<WeatherPlace>) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<CitySuggestion[]>([]);
   const [message, setMessage] = useState<string | null>(null);
@@ -40,6 +40,7 @@ export function WeatherConfig({ onSubmit }: CardConfigProps<WeatherPlace>) {
   return (
     <div className={sheet.stack}>
       <h3 className={sheet.fieldTitle}>Ta ville</h3>
+      {initial && <p className={sheet.message}>Actuellement : {initial.name}. Cherche une autre ville pour la remplacer.</p>}
       <label className={sheet.search}>
         <Icon name="search" size={18} />
         <span className="visually-hidden">Rechercher une ville</span>

@@ -1,6 +1,7 @@
 import type { CardViewProps } from '../registry';
 import { hourLabel, weatherAlert, weatherLabel, windText, type WeatherPlace } from './api';
 import { useWeather } from './useWeather';
+import { WeatherIcon } from './WeatherIcon';
 import styles from './Weather.module.css';
 
 export function WeatherCard({ config, size }: CardViewProps<WeatherPlace>) {
@@ -17,7 +18,10 @@ export function WeatherCard({ config, size }: CardViewProps<WeatherPlace>) {
   if (size === 'small') {
     return (
       <div className={styles.small}>
-        <span className={styles.place}>{config.name}</span>
+        <div className={styles.placeRow}>
+          <span className={styles.place}>{config.name}</span>
+          <WeatherIcon code={data.code} isDay={data.isDay} size={34} label={weatherLabel(data.code)} />
+        </div>
         <div className={styles.tempRow}>
           <span className={styles.temp}>{data.temperature}°</span>
           <span className={styles.range}>
@@ -41,7 +45,10 @@ export function WeatherCard({ config, size }: CardViewProps<WeatherPlace>) {
       <div className={styles.top}>
         <div className={styles.now}>
           <span className={styles.place}>{config.name}</span>
-          <span className={styles.temp}>{data.temperature}°</span>
+          <div className={styles.nowRow}>
+            <span className={styles.temp}>{data.temperature}°</span>
+            <WeatherIcon code={data.code} isDay={data.isDay} size={46} />
+          </div>
         </div>
         <div className={styles.details}>
           <strong>{weatherLabel(data.code)}</strong>
@@ -55,6 +62,7 @@ export function WeatherCard({ config, size }: CardViewProps<WeatherPlace>) {
         {slots.map((h) => (
           <li key={h.time} className={h.rainChance >= 50 || h.gusts >= 60 ? styles.rainy : undefined}>
             <span>{hourLabel(h.time)}</span>
+            {size === 'large' && <WeatherIcon code={h.code} isDay={h.isDay} size={24} label={weatherLabel(h.code)} />}
             <strong>{h.temperature}°</strong>
             {size === 'large' && (
               <>

@@ -2,20 +2,28 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRefreshOnReturn } from '../../hooks/useRefreshOnReturn';
 import { fetchDepartures, type Departure } from './api';
 
-export function useDepartures(stopId: string) {
-    const [departures, setDepartures] = useState<Departure[] | null>(null);
+/** Prochains départs de plusieurs arrêts, chargés en parallèle */
+export function useDepartures(stopIds: string[]) {
+    const [byStop, setByStop] = useState<Record<string, Departure[]> | null>(null);
     const [error, setError] = useState(false);
     const [now, setNow] = useState(() => new Date());
+    const key = stopIds.join('\n');
 
     const load = useCallback(() => {
-        fetchDepartures(stopId)
-            .then((d) => {
-                setDepartures(d);
-                setError(false);
+        const ids = key ? key.split('\n') : [];
+        Promise.allSettled(ids.map((id) => fetchDepartures(id))).then((results) => {
+            const next: Record<string, Departure[]> = {};
+            results.forEach((r, i) => {
+                if (r.status === 'fulfilled') next[ids[i]] = r.value;
+            });
+            const allFailed = ids.length > 0 && results.every((r) => r.status === 'rejected');
+            setError(allFailed);
+            if (!allFailed) {
+                setByStop(next);
                 setNow(new Date());
-            })
-            .catch(() => setError(true));
-    }, [stopId]);
+            }
+        });
+    }, [key]);
 
     useEffect(() => {
         load();
@@ -30,5 +38,5 @@ export function useDepartures(stopId: string) {
         return () => window.clearInterval(t);
     }, []);
 
-    return { departures, error, now };
+    return { byStop, error, now };
 }

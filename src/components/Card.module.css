@@ -58,7 +58,7 @@
 
 .wide .actions,
 .large .actions {
-  grid-template-columns: repeat(4, 44px);
+  grid-template-columns: repeat(5, 44px);
 }
 
 .actions button {

@@ -129,3 +129,78 @@
 :global([data-theme='dark']) .alert {
   color: #ff8a50;
 }
+
+/* Pictogrammes météo */
+.icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.sun circle {
+  fill: #f5a524;
+}
+
+.sun line {
+  stroke: #f5a524;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.moon {
+  fill: #e9c46a;
+}
+
+.cloud {
+  fill: #c3ccdb;
+}
+
+.drop line {
+  stroke: #3b82f6;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.snow line {
+  stroke: #3e8bd8;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.fog line {
+  stroke: #9aa6ba;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.bolt {
+  fill: #f5a524;
+}
+
+:global([data-theme='dark']) .cloud {
+  fill: #8e9bb5;
+}
+
+:global([data-theme='dark']) .drop line {
+  stroke: #60a5fa;
+}
+
+:global([data-theme='dark']) .snow line {
+  stroke: #93c5fd;
+}
+
+.placeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.nowRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hours li .icon {
+  margin: 2px 0;
+}

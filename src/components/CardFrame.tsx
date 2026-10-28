@@ -12,9 +12,10 @@ interface Props {
   onMove?: (direction: -1 | 1) => void;
   onResize?: (size: CardSize) => void;
   onRemove?: () => void;
+  onEdit?: () => void;
 }
 
-export function CardFrame({ card, editing, isFirst, isLast, onMove, onResize, onRemove }: Props) {
+export function CardFrame({ card, editing, isFirst, isLast, onMove, onResize, onRemove, onEdit }: Props) {
   const def = getCardDefinition(card.type);
   const View = def?.View;
   const [confirming, setConfirming] = useState(false);
@@ -57,6 +58,11 @@ export function CardFrame({ card, editing, isFirst, isLast, onMove, onResize, on
 
       {editing && !confirming && (
         <div className={styles.actions}>
+          {onEdit && def?.ConfigForm && def.editable !== false && (
+            <button type="button" aria-label="Modifier la carte" onClick={onEdit}>
+              <Icon name="sliders" size={18} />
+            </button>
+          )}
           <button type="button" aria-label="Monter" disabled={isFirst} onClick={() => onMove?.(-1)}>
             <Icon name="up" size={18} />
           </button>

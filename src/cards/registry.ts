@@ -16,6 +16,8 @@ export interface CardViewProps<C> {
 
 export interface CardConfigProps<C> {
   onSubmit: (config: C) => void;
+  /** Réglages actuels de la carte, quand on la modifie (absent à l'ajout) */
+  initial?: C;
 }
 
 export interface CardDefinition<C = any> {
@@ -31,6 +33,8 @@ export interface CardDefinition<C = any> {
   View?: ComponentType<CardViewProps<C>>;
   /** Formulaire demandé au moment de l'ajout. Absent = pas de réglage. */
   ConfigForm?: ComponentType<CardConfigProps<C>>;
+  /** false = la carte ne propose pas « Modifier » (ex. cartes MealsUp, dont le compte se gère dans Mon compte) */
+  editable?: boolean;
 }
 
 /**
@@ -74,6 +78,7 @@ export const CARD_TYPES: CardDefinition[] = [
     defaultSize: 'wide',
     View: NextMealCard,
     ConfigForm: MealsupLogin,
+    editable: false,
   },
   {
     type: 'mealsup-fridge',
@@ -86,6 +91,7 @@ export const CARD_TYPES: CardDefinition[] = [
     defaultSize: 'wide',
     View: ExpiringCard,
     ConfigForm: FridgeLogin,
+    editable: false,
   },
   { type: 'bikes', name: 'Vélos', description: 'Vélos et places dispo près de toi', icon: 'bike', status: 'soon', sizes: ['small', 'wide'], defaultSize: 'small' },
   { type: 'air', name: 'Qualité de l’air', description: 'Indice du jour et pollens', icon: 'air', status: 'soon', sizes: ['small', 'wide'], defaultSize: 'small' },

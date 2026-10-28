@@ -51,6 +51,12 @@ export function useCards() {
     if (err) load();
   };
 
+  const updateConfig = async (id: string, config: Record<string, unknown>) => {
+    const { error: err } = await supabase.from('cards').update({ config }).eq('id', id);
+    if (err) throw new Error('Les modifications n’ont pas pu être enregistrées. Réessaie.');
+    setCards((prev) => prev.map((c) => (c.id === id ? { ...c, config } : c)));
+  };
+
   /** Échange la carte avec sa voisine (direction -1 = vers le haut, 1 = vers le bas) */
   const moveCard = async (id: string, direction: -1 | 1) => {
     const index = cards.findIndex((c) => c.id === id);
@@ -69,5 +75,5 @@ export function useCards() {
     if (results.some((r) => r.error)) load();
   };
 
-  return { cards, loading, error, addCard, removeCard, resizeCard, moveCard };
+  return { cards, loading, error, addCard, removeCard, resizeCard, moveCard, updateConfig };
 }

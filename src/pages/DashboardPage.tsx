@@ -5,6 +5,7 @@ import { formatToday, greeting } from '../lib/date';
 import { useCards } from '../hooks/useCards';
 import type { Theme } from '../hooks/useTheme';
 import { AccountSheet } from '../components/AccountSheet';
+import { EditCardSheet } from '../components/EditCardSheet';
 import { AddCardSheet } from '../components/AddCardSheet';
 import { CardFrame } from '../components/CardFrame';
 import { EmptyState } from '../components/EmptyState';
@@ -20,10 +21,12 @@ interface Props {
 }
 
 export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
-  const { cards, loading, error, addCard, removeCard, resizeCard, moveCard } = useCards();
+  const { cards, loading, error, addCard, removeCard, resizeCard, moveCard, updateConfig } = useCards();
   const [editing, setEditing] = useState(false);
   const [adding, setAdding] = useState(false);
   const [account, setAccount] = useState(false);
+  const [editingCardId, setEditingCardId] = useState<string | null>(null);
+  const editingCard = cards.find((c) => c.id === editingCardId) ?? null;
   const [resume, setResume] = useState<{ type: string; config: Record<string, unknown> } | null>(null);
   // La connexion MealsUp de cet appareil appartient au compte Aube connecté
   useEffect(() => {
@@ -104,6 +107,7 @@ export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
             onMove={(d) => moveCard(card.id, d)}
             onResize={(s) => resizeCard(card.id, s)}
             onRemove={() => removeCard(card.id)}
+            onEdit={() => setEditingCardId(card.id)}
           />
         ))}
         {!loading && cards.length === 0 && <EmptyState onAdd={openAdd} />}
@@ -113,6 +117,14 @@ export function DashboardPage({ userId, email, theme, onToggleTheme }: Props) {
         <div className={styles.editBar}>
           <p>Déplace, redimensionne ou supprime tes cartes. La carte Notes reste toujours en haut.</p>
         </div>
+      )}
+
+      {editingCard && (
+        <EditCardSheet
+          card={editingCard}
+          onClose={() => setEditingCardId(null)}
+          onSave={(config) => updateConfig(editingCard.id, config)}
+        />
       )}
 
       {account && <AccountSheet email={email} onClose={() => setAccount(false)} />}
