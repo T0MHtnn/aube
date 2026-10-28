@@ -101,7 +101,7 @@ export function NextMealCard({ size }: CardViewProps<MealsupConfig>) {
       {openButton}
       <MealImage src={next.imageUrl} />
       <div className={styles.text}>
-        <span className={`${styles.label} ${openButton ? styles.withOpen : styles.first}`}>{when(next)}</span>
+        <span className={`${styles.label} ${openButton && !next.imageUrl ? styles.withOpen : styles.first}`}>{when(next)}</span>
         <strong className={styles.title}>{next.title}</strong>
         <span className={styles.meta}>{missingText(state.missing)}</span>
       </div>
